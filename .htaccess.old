@@ -1,0 +1,26 @@
+Options +Includes +FollowSymLinks
+AddDefaultCharset UTF-8
+DirectoryIndex index.php index.html index.htm
+#Action php-script /cgi-bin/php
+#AddHandler php-script .html .php .phtml .php3
+#AddHandler server-parsed .htm
+#DirectoryIndex index.html index.php index.htm
+
+<FilesMatch "^(?!_result_prepare_post\.html)">
+AuthName Exclusive
+AuthType Basic
+AuthUserFile /var/www/bookclub/data/.pac/.pa
+AuthGroupFile /dev/null
+require user rauthor
+</FilesMatch>
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+
+#RewriteRule ^web/ /404.html [R=301,L]
+#RewriteRule ^catalog/([a-z0-9_-]+) /web/catalog/$1 [L]
+
+#RewriteRule ^dir /dir-new/$1 [R=301,L]
